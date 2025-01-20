@@ -165,6 +165,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // WhatsApp Inquiry Functionality
+    const inquiryForm = document.getElementById('inquiry-form');
+    const whatsappDirectBtn = document.getElementById('whatsapp-direct');
+    const whatsappInquiryBtn = document.getElementById('whatsapp-inquiry');
+
+    // Hotel's WhatsApp number (replace with actual number)
+    const hotelWhatsAppNumber = '+919876543210';
+
+    // WhatsApp Direct Chat
+    whatsappDirectBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const whatsappUrl = `https://wa.me/${hotelWhatsAppNumber.replace(/\+|\s/g, '')}`;
+        window.open(whatsappUrl, '_blank');
+    });
+
+    // WhatsApp Inquiry Submission
+    whatsappInquiryBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        const name = inquiryForm.querySelector('input[name="name"]').value.trim();
+        const email = inquiryForm.querySelector('input[name="email"]').value.trim();
+        const phone = inquiryForm.querySelector('input[name="phone"]').value.trim();
+        const message = inquiryForm.querySelector('textarea[name="message"]').value.trim();
+
+        if (!name || !email || !message) {
+            alert('Please fill in Name, Email, and Message fields.');
+            return;
+        }
+
+        // Construct WhatsApp message
+        const whatsappMessage = encodeURIComponent(`
+Inquiry from T. S. Haveli Website:
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not Provided'}
+
+Message:
+${message}
+        `);
+
+        // Open WhatsApp with pre-filled message
+        const whatsappUrl = `https://wa.me/${hotelWhatsAppNumber.replace(/\+|\s/g, '')}?text=${whatsappMessage}`;
+        window.open(whatsappUrl, '_blank');
+    });
+
+    // Form submission handler (optional)
+    inquiryForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // You can add additional form submission logic here
+        // For now, we'll just show an alert
+        alert('Thank you for your inquiry! We will get back to you soon.');
+    });
+
     // Performance and Accessibility
     if ('IntersectionObserver' in window) {
         const lazyImages = document.querySelectorAll('img[data-src]');
