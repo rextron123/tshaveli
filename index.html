@@ -237,12 +237,22 @@
             <h2>Connect With Us</h2>
             <div class="contact-info">
                 <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="tel" placeholder="Your Phone Number">
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
-                        <button type="submit">Send Inquiry</button>
+                    <form id="inquiry-form">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="tel" name="phone" placeholder="Your Phone Number">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit">Send Inquiry</button>
+                            <div class="whatsapp-options">
+                                <a href="#" id="whatsapp-direct" class="btn-whatsapp" title="Direct WhatsApp Chat">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp Chat
+                                </a>
+                                <a href="#" id="whatsapp-inquiry" class="btn-whatsapp" title="Send Inquiry via WhatsApp">
+                                    <i class="fab fa-whatsapp"></i> Send Inquiry
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="contact-details">
