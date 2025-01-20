@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.tshavelhotel.com/sitemap.xml
+
+# Directories to exclude
+Disallow: /admin/
+Disallow: /private/
+
+# Crawl-delay to prevent overwhelming the server
+Crawl-delay: 10
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
