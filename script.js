@@ -1,93 +1,227 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Hero Image Gallery
-    const heroImages = document.querySelectorAll('.hero-image');
-    let currentImageIndex = 0;
+    // Responsive Design Utilities
+    const responsiveUtils = {
+        isMobile: () => window.innerWidth <= 768,
+        isTablet: () => window.innerWidth > 768 && window.innerWidth <= 1024,
+        isDesktop: () => window.innerWidth > 1024,
 
-    function changeHeroImage() {
-        // Remove active class from current image
-        heroImages[currentImageIndex].classList.remove('active');
+        // Adaptive Navigation
+        setupNavigation() {
+            const navToggle = document.createElement('div');
+            navToggle.classList.add('nav-toggle');
+            navToggle.innerHTML = '☰';
+            
+            const nav = document.querySelector('nav');
+            const navMenu = nav.querySelector('ul');
+            nav.insertBefore(navToggle, navMenu);
 
-        // Move to next image, loop back to start if at end
-        currentImageIndex = (currentImageIndex + 1) % 6;
+            // Toggle mobile menu
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
 
-        // Add active class to next image
-        heroImages[currentImageIndex].classList.add('active');
-    }
+            // Close mobile menu when a link is clicked
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                });
+            });
 
-    // Change image every 3 seconds
-    setInterval(changeHeroImage, 3000);
+            // Adaptive menu display
+            window.addEventListener('resize', () => {
+                if (!this.isMobile()) {
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
+            });
+        },
 
-    // Smooth scrolling for navigation links
+        // Adaptive Hero Section
+        setupHeroSection() {
+            const heroImages = document.querySelectorAll('.hero-image');
+            let currentImageIndex = 0;
+
+            function changeHeroImage() {
+                heroImages[currentImageIndex].classList.remove('active');
+                currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+                heroImages[currentImageIndex].classList.add('active');
+            }
+
+            // Adjust image change interval based on device
+            const interval = this.isMobile() ? 2000 : 3000;
+            setInterval(changeHeroImage, interval);
+        },
+
+        // Responsive Grid Layouts
+        setupResponsiveGrids() {
+            const grids = document.querySelectorAll('.grid, .package-grid, .services-grid');
+            grids.forEach(grid => {
+                if (this.isMobile()) {
+                    grid.style.gridTemplateColumns = '1fr';
+                } else if (this.isTablet()) {
+                    grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                } else {
+                    grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+                }
+            });
+        },
+
+        // Touch Interaction Enhancements
+        setupTouchInteractions() {
+            const touchElements = document.querySelectorAll('.book-now, .cta-button, .service-card, .package-card');
+            touchElements.forEach(el => {
+                el.addEventListener('touchstart', function() {
+                    this.classList.add('touch-active');
+                });
+                el.addEventListener('touchend', function() {
+                    this.classList.remove('touch-active');
+                });
+            });
+        },
+
+        // Initialize Responsive Features
+        init() {
+            this.setupNavigation();
+            this.setupHeroSection();
+            this.setupResponsiveGrids();
+            this.setupTouchInteractions();
+
+            // Recheck layout on window resize
+            window.addEventListener('resize', () => {
+                this.setupResponsiveGrids();
+            });
+        }
+    };
+
+    // Run responsive utilities
+    responsiveUtils.init();
+
+    // Smooth Scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-
             document.querySelector(this.getAttribute('href')).scrollIntoView({
                 behavior: 'smooth'
             });
         });
     });
 
-    // Contact Form Submission with Enhanced Validation
+    // Form Validation and Submission
     const contactForm = document.querySelector('.contact-form');
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Advanced form validation
-        const name = this.querySelector('input[type="text"]');
-        const email = this.querySelector('input[type="email"]');
-        const phone = this.querySelector('input[type="tel"]');
-        const message = this.querySelector('textarea');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = this.querySelector('input[type="text"]');
+            const email = this.querySelector('input[type="email"]');
+            const phone = this.querySelector('input[type="tel"]');
+            const message = this.querySelector('textarea');
 
-        // Validation functions
-        const validateName = (name) => name.value.trim().length >= 2;
-        const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-        const validatePhone = (phone) => /^[+]?[\d\s-]{10,}$/.test(phone.value);
-        const validateMessage = (message) => message.value.trim().length >= 10;
+            const validateName = (name) => name.value.trim().length >= 2;
+            const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+            const validatePhone = (phone) => /^[+]?[\d\s-]{10,}$/.test(phone.value);
+            const validateMessage = (message) => message.value.trim().length >= 10;
 
-        // Reset previous error states
-        [name, email, phone, message].forEach(field => {
-            field.classList.remove('error');
+            [name, email, phone, message].forEach(field => {
+                field.classList.remove('error');
+            });
+
+            let isValid = true;
+            
+            if (!validateName(name)) {
+                name.classList.add('error');
+                isValid = false;
+            }
+            
+            if (!validateEmail(email)) {
+                email.classList.add('error');
+                isValid = false;
+            }
+            
+            if (phone.value && !validatePhone(phone)) {
+                phone.classList.add('error');
+                isValid = false;
+            }
+            
+            if (!validateMessage(message)) {
+                message.classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                const submitButton = this.querySelector('button');
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+
+                setTimeout(() => {
+                    alert('Thank you for your inquiry! Our team will contact you soon.');
+                    this.reset();
+                    submitButton.textContent = 'Send Inquiry';
+                    submitButton.disabled = false;
+                }, 1500);
+            }
+        });
+    }
+
+    // Performance and Accessibility
+    if ('IntersectionObserver' in window) {
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
         });
 
-        // Perform validation
-        let isValid = true;
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+
+    // Hero Image Gallery
+    const heroImages = document.querySelectorAll('.hero-image');
+    let currentImageIndex = 0;
+
+    function changeHeroImage() {
+        heroImages[currentImageIndex].classList.remove('active');
+        currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+        heroImages[currentImageIndex].classList.add('active');
+    }
+
+    setInterval(changeHeroImage, 3000);
+
+    // Responsive design adjustments
+    function adjustLayoutForMobile() {
+        const isMobile = window.innerWidth <= 768;
         
-        if (!validateName(name)) {
-            name.classList.add('error');
-            isValid = false;
-        }
-        
-        if (!validateEmail(email)) {
-            email.classList.add('error');
-            isValid = false;
-        }
-        
-        if (phone.value && !validatePhone(phone)) {
-            phone.classList.add('error');
-            isValid = false;
-        }
-        
-        if (!validateMessage(message)) {
-            message.classList.add('error');
-            isValid = false;
+        const hero = document.querySelector('.hero');
+        if (isMobile) {
+            hero.style.height = `${window.innerHeight * 0.6}px`;
+        } else {
+            hero.style.height = '600px';
         }
 
-        // If form is valid, simulate form submission
-        if (isValid) {
-            const submitButton = this.querySelector('button');
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
-
-            // Simulated async submission
-            setTimeout(() => {
-                alert('Thank you for your inquiry! Our team will contact you soon.');
-                this.reset();
-                submitButton.textContent = 'Send Inquiry';
-                submitButton.disabled = false;
-            }, 1500);
+        const heroTitle = document.querySelector('.hero h1');
+        const heroSubtitle = document.querySelector('.hero h2');
+        if (isMobile) {
+            heroTitle.style.fontSize = '1.8rem';
+            heroSubtitle.style.fontSize = '1.2rem';
+        } else {
+            heroTitle.style.fontSize = '2.5rem';
+            heroSubtitle.style.fontSize = '1.6rem';
         }
-    });
+    }
+
+    adjustLayoutForMobile();
+
+    window.addEventListener('resize', adjustLayoutForMobile);
 
     // Package Booking Interaction with Modal
     const bookNowButtons = document.querySelectorAll('.book-now');
@@ -96,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const packageName = this.closest('.package-card-content').querySelector('h3').textContent;
             
-            // Create a modal dynamically
             const modal = document.createElement('div');
             modal.classList.add('booking-modal');
             modal.innerHTML = `
@@ -116,13 +249,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.body.appendChild(modal);
 
-            // Close modal functionality
             const closeModal = modal.querySelector('.close-modal');
             closeModal.addEventListener('click', () => {
                 document.body.removeChild(modal);
             });
 
-            // Booking form submission
             const bookingForm = modal.querySelector('.booking-form');
             bookingForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -131,24 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
-    // Responsive Navigation Toggle
-    const navToggle = document.createElement('div');
-    navToggle.classList.add('nav-toggle');
-    navToggle.innerHTML = '☰';
-    navToggle.style.display = 'none';
-    document.querySelector('nav').prepend(navToggle);
-
-    // Responsive menu toggle
-    if (window.innerWidth <= 768) {
-        const navMenu = document.querySelector('nav ul');
-        navToggle.style.display = 'block';
-        
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
-        });
-    }
 
     // Add parallax effect to hero section
     const heroSection = document.querySelector('.hero');
