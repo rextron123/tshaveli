@@ -1,11 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 <head>
+    <!-- Basic SEO Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T. S. Haveli - Jaisalmer Heritage Experience</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>T. S. Haveli - Luxury Heritage Hotel in Jaisalmer, Rajasthan</title>
+    <meta name="description" content="Experience royal Rajasthani hospitality at T. S. Haveli. A luxurious heritage hotel in Jaisalmer offering authentic cultural experiences, traditional rooms, and desert adventures.">
+    <meta name="keywords" content="Jaisalmer heritage hotel, luxury haveli, Rajasthani hospitality, desert tourism, cultural experience">
+    
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="hotel.resort">
+    <meta property="og:title" content="T. S. Haveli - Luxury Heritage Hotel in Jaisalmer">
+    <meta property="og:description" content="Experience royal Rajasthani hospitality at T. S. Haveli. A luxurious heritage hotel in Jaisalmer offering authentic cultural experiences.">
+    <meta property="og:image" content="https://www.tshavelhotel.com/hero-image-1.jpg">
+    <meta property="og:url" content="https://www.tshavelhotel.com">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="T. S. Haveli - Luxury Heritage Hotel">
+    <meta name="twitter:description" content="Experience royal Rajasthani hospitality at T. S. Haveli. A luxurious heritage hotel in Jaisalmer offering authentic cultural experiences.">
+    <meta name="twitter:image" content="https://www.tshavelhotel.com/hero-image-1.jpg">
+    
+    <!-- Geo Meta Tags -->
+    <meta name="geo.region" content="IN-RJ">
+    <meta name="geo.placename" content="Jaisalmer">
+    <meta name="geo.position" content="26.9124;70.9078">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.tshavelhotel.com">
+    
+    <!-- Robots Meta Tag -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "T. S. Haveli",
+        "description": "A luxurious heritage hotel in Jaisalmer offering authentic Rajasthani hospitality",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Fort Road",
+            "addressLocality": "Jaisalmer",
+            "addressRegion": "Rajasthan",
+            "postalCode": "345001",
+            "addressCountry": "IN"
+        },
+        "telephone": "+91-9876543210",
+        "email": "reservations@tshavelhotel.com",
+        "image": "https://www.tshavelhotel.com/hero-image-1.jpg",
+        "priceRange": "$$$",
+        "amenityFeature": [
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Desert Safari",
+                "value": true
+            },
+            {
+                "@type": "LocationFeatureSpecification",
+                "name": "Cultural Experiences",
+                "value": true
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Structured Data - WebSite -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "T. S. Haveli",
+        "url": "https://www.tshavelhotel.com",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.tshavelhotel.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- Performance and Accessibility -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon and Touch Icons -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Stylesheet and Scripts -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -146,24 +233,37 @@
             </div>
         </section>
 
-        <section id="contact" class="contact">
+        <section id="contact" class="contact-section">
             <h2>Connect With Us</h2>
             <div class="contact-info">
-                <div class="contact-details">
-                    <h3>T. S. Haveli</h3>
-                    <p>Location: Near Jaisalmer Fort, Golden City</p>
-                    <p>City: Jaisalmer, Rajasthan, India</p>
-                    <p>Phone: +91 98765 43210</p>
-                    <p>Email: reservations@tshaveli.com</p>
-                    <p>Timings: 7:00 AM - 10:00 PM</p>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Your Phone Number">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit">Send Inquiry</button>
+                    </form>
                 </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <input type="tel" placeholder="Your Phone Number">
-                    <textarea placeholder="Your Inquiry or Special Request" required></textarea>
-                    <button type="submit">Send Inquiry</button>
-                </form>
+                <div class="contact-details">
+                    <h3>T. S. Haveli Contact Information</h3>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Fort Road, Near Jaisalmer Fort, Jaisalmer, Rajasthan 345001</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 98765 43210</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>reservations@tshavelhotel.com</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-clock"></i>
+                        <p>Open Daily: 8:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
